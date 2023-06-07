@@ -144,10 +144,10 @@ export const isCollaborationLink = (link: string) => {
 export const getCollaborationLinkData = (link: string) => {
   const hash = new URL(link).hash;
   const match = hash.match(RE_COLLAB_LINK);
-  if (match && match[2].length !== 22) {
-    window.alert(t("alerts.invalidEncryptionKey"));
-    return null;
-  }
+  // if (match && match[2].length !== 22) {
+  //   window.alert(t("alerts.invalidEncryptionKey"));
+  //   return null;
+  // }
   return match ? { roomId: match[1], roomKey: match[2] } : null;
 };
 
