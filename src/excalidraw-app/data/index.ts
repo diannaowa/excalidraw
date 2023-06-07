@@ -153,7 +153,8 @@ export const getCollaborationLinkData = (link: string) => {
 
 export const generateCollaborationLinkData = async () => {
   const roomId = await generateRoomId();
-  const roomKey = await generateEncryptionKey();
+  const roomKey = await generateRoomId();
+  //const roomKey = await generateEncryptionKey();
 
   if (!roomKey) {
     throw new Error("Couldn't generate room key");
