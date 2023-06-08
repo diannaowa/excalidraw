@@ -35,13 +35,21 @@ import {
   SocketUpdateDataSource,
   SyncableExcalidrawElement,
 } from "../data";
+// import {
+//   isSavedToFirebase,
+//   loadFilesFromFirebase,
+//   loadFromFirebase,
+//   saveFilesToFirebase,
+//   saveToFirebase,
+// } from "../data/firebase";
 import {
-  isSavedToFirebase,
-  loadFilesFromFirebase,
-  loadFromFirebase,
-  saveFilesToFirebase,
-  saveToFirebase,
-} from "../data/firebase";
+  isSavedToHttpStorage,
+  loadFilesFromHttpStorage,
+  loadFromHttpStorage,
+  saveFilesToHttpStorage,
+  saveToHttpStorage,
+} from "../data/httpStorage";
+
 import {
   importUsernameFromLocalStorage,
   saveUsernameToLocalStorage,
@@ -128,7 +136,7 @@ class Collab extends PureComponent<Props, CollabState> {
           throw new AbortError();
         }
 
-        return loadFilesFromFirebase(`files/rooms/${roomId}`, roomKey, fileIds);
+        return loadFilesFromHttpStorage(`files/rooms/${roomId}`, roomKey, fileIds);
       },
       saveFiles: async ({ addedFiles }) => {
         const { roomId, roomKey } = this.portal;
@@ -136,7 +144,16 @@ class Collab extends PureComponent<Props, CollabState> {
           throw new AbortError();
         }
 
-        return saveFilesToFirebase({
+        // return saveFilesToFirebase({
+        //   prefix: `${FIREBASE_STORAGE_PREFIXES.collabFiles}/${roomId}`,
+        //   files: await encodeFilesForUpload({
+        //     files: addedFiles,
+        //     encryptionKey: roomKey,
+        //     maxBytes: FILE_UPLOAD_MAX_BYTES,
+        //   }),
+        // });
+
+        return saveFilesToHttpStorage({
           prefix: `${FIREBASE_STORAGE_PREFIXES.collabFiles}/${roomId}`,
           files: await encodeFilesForUpload({
             files: addedFiles,
@@ -226,7 +243,7 @@ class Collab extends PureComponent<Props, CollabState> {
     if (
       this.isCollaborating() &&
       (this.fileManager.shouldPreventUnload(syncableElements) ||
-        !isSavedToFirebase(this.portal, syncableElements))
+        !isSavedToHttpStorage(this.portal, syncableElements))
     ) {
       // this won't run in time if user decides to leave the site, but
       //  the purpose is to run in immediately after user decides to stay
@@ -240,15 +257,14 @@ class Collab extends PureComponent<Props, CollabState> {
     syncableElements: readonly SyncableExcalidrawElement[],
   ) => {
     try {
-      const savedData = await saveToFirebase(
+      const savedData = await saveToHttpStorage(
         this.portal,
         syncableElements,
-        this.excalidrawAPI.getAppState(),
       );
 
-      if (this.isCollaborating() && savedData && savedData.reconciledElements) {
+      if (savedData) {
         this.handleRemoteSceneUpdate(
-          this.reconcileElements(savedData.reconciledElements),
+          this.reconcileElements(syncableElements),
         );
       }
     } catch (error: any) {
@@ -577,7 +593,7 @@ class Collab extends PureComponent<Props, CollabState> {
       this.excalidrawAPI.resetScene();
 
       try {
-        const elements = await loadFromFirebase(
+        const elements = await loadFromHttpStorage(
           roomLinkData.roomId,
           roomLinkData.roomKey,
           this.portal.socket,
