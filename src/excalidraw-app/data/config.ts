@@ -1,11 +1,11 @@
 import { fetchEnv } from "./env";
-import {
-  isSavedToFirebase,
-  loadFilesFromFirebase,
-  loadFromFirebase,
-  saveFilesToFirebase,
-  saveToFirebase,
-} from "./firebase";
+// import {
+//   isSavedToFirebase,
+//   loadFilesFromFirebase,
+//   loadFromFirebase,
+//   saveFilesToFirebase,
+//   saveToFirebase,
+// } from "./firebase";
 import {
   isSavedToHttpStorage,
   loadFilesFromHttpStorage,
