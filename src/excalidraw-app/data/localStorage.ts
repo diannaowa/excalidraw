@@ -37,9 +37,10 @@ export const importUsernameFromLocalStorage = (): string | null => {
 export const importFromLocalStorage = () => {
   let savedElements = null;
   let savedState = null;
-
+  const currentContainerName = getContainerNameFromStorage();
   try {
-    savedElements = localStorage.getItem(STORAGE_KEYS.LOCAL_STORAGE_ELEMENTS);
+    // savedElements = localStorage.getItem(STORAGE_KEYS.LOCAL_STORAGE_ELEMENTS);
+    savedElements = localStorage.getItem(currentContainerName);
     savedState = localStorage.getItem(STORAGE_KEYS.LOCAL_STORAGE_APP_STATE);
   } catch (error: any) {
     // Unable to access localStorage

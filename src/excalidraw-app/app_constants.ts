@@ -34,7 +34,7 @@ export const STORAGE_KEYS = {
   LOCAL_STORAGE_DEFAULT_CONTAINER_NAME: "default_canvas",
   LOCAL_STORAGE_CONTAINER_ID: "excalidraw_container_id",
   LOCAL_STORAGE_CONTAINER_NAME: "excalidraw_container_name",
-  LOCAL_STORAGE_ELEMENTS: "excalidraw",
+  // LOCAL_STORAGE_ELEMENTS: "excalidraw",
   LOCAL_STORAGE_APP_STATE: "excalidraw-state",
   LOCAL_STORAGE_COLLAB: "excalidraw-collab",
   LOCAL_STORAGE_LIBRARY: "excalidraw-library",
