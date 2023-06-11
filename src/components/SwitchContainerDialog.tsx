@@ -1,6 +1,6 @@
 import React from "react";
 import { t } from "../i18n";
-import { AppState } from "../types";
+import {AppState, UIAppState} from "../types";
 import "./ExportDialog.scss";
 import { ActionManager } from "../actions/manager";
 import { Dialog } from "./Dialog";
@@ -17,7 +17,7 @@ export const SwitchSceneDialog = ({
   appState,
   setAppState,
 }: {
-  appState: AppState;
+  appState: UIAppState;
   setAppState: React.Component<any, AppState>["setState"];
   actionManager: ActionManager;
 }) => {

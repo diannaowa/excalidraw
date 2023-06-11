@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { t } from "../i18n";
-import { AppState } from "../types";
+import {AppState, UIAppState} from "../types";
 import { Dialog } from "./Dialog";
 import "./ExportDialog.scss";
 import { ActionManager } from "../actions/manager";
@@ -22,7 +22,7 @@ export const NewSceneDialog = ({
 // exportPadding = DEFAULT_EXPORT_PADDING,
 // actionManager,
 {
-  appState: AppState;
+  appState: UIAppState;
   setAppState: React.Component<any, AppState>["setState"];
   // elements: readonly NonDeletedExcalidrawElement[];
   // files: BinaryFiles;

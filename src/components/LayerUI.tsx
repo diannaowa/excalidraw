@@ -18,6 +18,8 @@ import { capitalizeString, isShallowEqual } from "../utils";
 import { SelectedShapeActions, ShapesSwitcher } from "./Actions";
 import { ErrorDialog } from "./ErrorDialog";
 import { ImageExportDialog } from "./ImageExportDialog";
+import { SwitchSceneDialog } from "./SwitchContainerDialog";
+import { NewSceneDialog } from "./NewContainerDialog";
 import { FixedSideContainer } from "./FixedSideContainer";
 import { HintViewer } from "./HintViewer";
 import { Island } from "./Island";
@@ -157,6 +159,26 @@ const LayerUI = ({
         actionManager={actionManager}
         onExportImage={onExportImage}
         onCloseRequest={() => setAppState({ openDialog: null })}
+      />
+    );
+  };
+
+  const renderSwitchSceneDialog = () => {
+    return (
+      <SwitchSceneDialog
+        appState={appState}
+        setAppState={setAppState}
+        actionManager={actionManager}
+      />
+    );
+  };
+
+  const renderNewSceneDialog = () => {
+    return (
+      <NewSceneDialog
+        appState={appState}
+        setAppState={setAppState}
+        actionManager={actionManager}
       />
     );
   };
@@ -381,6 +403,8 @@ const LayerUI = ({
       <ActiveConfirmDialog />
       {renderImageExportDialog()}
       {renderJSONExportDialog()}
+      {renderSwitchSceneDialog()}
+      {renderNewSceneDialog()}
       {appState.pasteDialog.shown && (
         <PasteChartDialog
           setAppState={setAppState}
