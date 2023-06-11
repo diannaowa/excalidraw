@@ -62,6 +62,7 @@ import {
   loadScene,
 } from "./data";
 import {
+  getContainerNameFromStorage,
   getLibraryItemsFromStorage,
   importFromLocalStorage,
   importUsernameFromLocalStorage,
@@ -613,6 +614,7 @@ const ExcalidrawWrapper = () => {
     >
       <Excalidraw
         ref={excalidrawRefCallback}
+        name={getContainerNameFromStorage()}
         onChange={onChange}
         initialData={initialStatePromiseRef.current.promise}
         isCollaborating={isCollaborating}
