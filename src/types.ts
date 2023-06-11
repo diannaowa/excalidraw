@@ -165,7 +165,7 @@ export type AppState = {
   openMenu: "canvas" | "shape" | null;
   openPopup: "canvasBackground" | "elementBackground" | "elementStroke" | null;
   openSidebar: { name: SidebarName; tab?: SidebarTabName } | null;
-  openDialog: "imageExport" | "help" | "jsonExport" | null;
+  openDialog: "imageExport" | "help" | "jsonExport" | "switchScene" | "newScene" | null;
   /**
    * Reflects user preference for whether the default sidebar should be docked.
    *
