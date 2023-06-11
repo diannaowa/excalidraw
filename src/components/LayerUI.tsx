@@ -53,6 +53,8 @@ import { EyeDropper, activeEyeDropperAtom } from "./EyeDropper";
 
 import "./LayerUI.scss";
 import "./Toolbar.scss";
+import {getContainerNameFromStorage, renameContainerNameToStorage} from "../excalidraw-app/data/localStorage";
+import InputPreview from "./InputPreview";
 
 interface LayerUIProps {
   actionManager: ActionManager;
@@ -222,7 +224,7 @@ const LayerUI = ({
       appState,
       elements,
     );
-
+    const currentContainerName = getContainerNameFromStorage();
     return (
       <FixedSideContainer side="top">
         <div className="App-menu App-menu_top">
@@ -232,7 +234,15 @@ const LayerUI = ({
               "disable-pointerEvents": appState.zenModeEnabled,
             })}
           >
-            {renderCanvasActions()}
+            <Stack.Row gap={6} align="center">
+              {renderCanvasActions()}
+              <InputPreview
+                defaultValue={currentContainerName}
+                onSave={(value) => {
+                  renameContainerNameToStorage(currentContainerName, value);
+                }}
+              />
+            </Stack.Row>
             {shouldRenderSelectedShapeActions && renderSelectedShapeActions()}
           </Stack.Col>
           {!appState.viewModeEnabled && (
