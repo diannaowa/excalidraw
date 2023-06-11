@@ -75,7 +75,9 @@ export const importFromLocalStorage = () => {
 
 export const getElementsStorageSize = () => {
   try {
-    const elements = localStorage.getItem(STORAGE_KEYS.LOCAL_STORAGE_ELEMENTS);
+    // const elements = localStorage.getItem(STORAGE_KEYS.LOCAL_STORAGE_ELEMENTS);
+    const currentContainerName = getContainerNameFromStorage();
+    const elements = localStorage.getItem(currentContainerName);
     const elementsSize = elements?.length || 0;
     return elementsSize;
   } catch (error: any) {

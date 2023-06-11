@@ -66,6 +66,7 @@ import {
   getLibraryItemsFromStorage,
   importFromLocalStorage,
   importUsernameFromLocalStorage,
+  getAllContainerListElementsFromStorage,
 } from "./data/localStorage";
 import CustomStats from "./CustomStats";
 import { restore, restoreAppState, RestoredDataState } from "../data/restore";
@@ -301,8 +302,17 @@ const ExcalidrawWrapper = () => {
             });
         }
       } else {
+        const allContainerListElements =
+          getAllContainerListElementsFromStorage();
+
+        console.log(
+          "--- allContainerListElements ---",
+          allContainerListElements,
+        );
+
         const fileIds =
-          data.scene.elements?.reduce((acc, element) => {
+          // data.scene.elements?.reduce((acc, element) => {
+          allContainerListElements?.reduce((acc, element) => {
             if (isInitializedImageElement(element)) {
               return acc.concat(element.fileId);
             }
