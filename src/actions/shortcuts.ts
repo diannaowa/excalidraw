@@ -35,6 +35,8 @@ export type ShortcutName =
       | "flipVertical"
       | "hyperlink"
       | "toggleElementLock"
+      | "newScene"
+      | "switchScene"
     >
   | "saveScene"
   | "imageExport";
@@ -43,6 +45,8 @@ const shortcutMap: Record<ShortcutName, string[]> = {
   toggleTheme: [getShortcutKey("Shift+Alt+D")],
   saveScene: [getShortcutKey("CtrlOrCmd+S")],
   loadScene: [getShortcutKey("CtrlOrCmd+O")],
+  newScene: [getShortcutKey("")],
+  switchScene: [getShortcutKey("")],
   clearCanvas: [getShortcutKey("CtrlOrCmd+Delete")],
   imageExport: [getShortcutKey("CtrlOrCmd+Shift+E")],
   cut: [getShortcutKey("CtrlOrCmd+X")],
