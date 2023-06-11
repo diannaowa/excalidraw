@@ -10,6 +10,8 @@ export const AppMainMenu: React.FC<{
   return (
     <MainMenu>
       <MainMenu.DefaultItems.LoadScene />
+      <MainMenu.DefaultItems.NewScene />
+      <MainMenu.DefaultItems.SwitchScene />
       <MainMenu.DefaultItems.SaveToActiveFile />
       <MainMenu.DefaultItems.Export />
       <MainMenu.DefaultItems.SaveAsImage />

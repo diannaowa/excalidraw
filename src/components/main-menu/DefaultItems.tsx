@@ -14,6 +14,7 @@ import {
 } from "../icons";
 import { GithubIcon, DiscordIcon, TwitterIcon } from "../icons";
 import DropdownMenuItem from "../dropdownMenu/DropdownMenuItem";
+import { FileAddOutlined, SwitcherOutlined } from "@ant-design/icons";
 import DropdownMenuItemLink from "../dropdownMenu/DropdownMenuItemLink";
 import {
   actionClearCanvas,
@@ -29,6 +30,40 @@ import { useSetAtom } from "jotai";
 import { activeConfirmDialogAtom } from "../ActiveConfirmDialog";
 import { jotaiScope } from "../../jotai";
 import { useUIAppState } from "../../context/ui-appState";
+
+export const NewScene = () => {
+  const setAppState = useExcalidrawSetAppState();
+  const { t } = useI18n();
+  return (
+    <DropdownMenuItem
+      icon={<FileAddOutlined />}
+      onSelect={() => setAppState({ openDialog: "newScene" })}
+      data-testid="recent-scenes-button"
+      shortcut={getShortcutFromShortcutName("newScene")}
+      aria-label={t("buttons.newScene")}
+    >
+      {t("buttons.newScene")}
+    </DropdownMenuItem>
+  );
+};
+
+export const SwitchScene = () => {
+  const setAppState = useExcalidrawSetAppState();
+  const { t } = useI18n();
+  return (
+    <DropdownMenuItem
+      icon={<SwitcherOutlined />}
+      onSelect={() => setAppState({ openDialog: "switchScene" })}
+      data-testid="recent-scenes-button"
+      shortcut={getShortcutFromShortcutName("switchScene")}
+      aria-label={t("buttons.switchScene")}
+    >
+      {t("buttons.switchScene")}
+    </DropdownMenuItem>
+  );
+};
+
+SwitchScene.displayName = "SwitchScene";
 
 export const LoadScene = () => {
   const { t } = useI18n();
