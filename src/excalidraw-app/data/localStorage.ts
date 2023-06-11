@@ -113,3 +113,114 @@ export const getLibraryItemsFromStorage = () => {
     return [];
   }
 };
+
+
+export const setContainerIdToStorage = (id: string) => {
+  if (id) {
+    localStorage.setItem(STORAGE_KEYS.LOCAL_STORAGE_CONTAINER_ID, id);
+  }
+};
+
+export const setContainerNameToStorage = (name: string) => {
+  if (name) {
+    localStorage.setItem(STORAGE_KEYS.LOCAL_STORAGE_CONTAINER_NAME, name);
+  }
+};
+
+export const getContainerIdFromStorage = () => {
+  localStorage.getItem(STORAGE_KEYS.LOCAL_STORAGE_CONTAINER_ID);
+};
+
+export const getContainerNameFromStorage = () => {
+  return (
+    localStorage.getItem(STORAGE_KEYS.LOCAL_STORAGE_CONTAINER_NAME) ||
+    STORAGE_KEYS.LOCAL_STORAGE_DEFAULT_CONTAINER_NAME
+  );
+};
+
+export const getContainerListFromStorage = (): string[] => {
+  try {
+    return JSON.parse(
+      localStorage.getItem(STORAGE_KEYS.LOCAL_STORAGE_CONTAINER_LIST) ||
+      `[${STORAGE_KEYS.LOCAL_STORAGE_DEFAULT_CONTAINER_NAME}]`,
+    );
+  } catch (err) {
+    console.error("localStorage getContainerList error", err);
+    return [STORAGE_KEYS.LOCAL_STORAGE_DEFAULT_CONTAINER_NAME];
+  }
+};
+
+export const setContainerListToStorage = (list: string[] = []) => {
+  localStorage.setItem(
+    STORAGE_KEYS.LOCAL_STORAGE_CONTAINER_LIST,
+    JSON.stringify(list),
+  );
+};
+
+export const getElementsFromStorage = (
+  containerName?: string,
+): ExcalidrawElement[] => {
+  const currentContainerName = getContainerNameFromStorage();
+
+  return JSON.parse(
+    localStorage.getItem(containerName || currentContainerName) || "[]",
+  );
+};
+
+export const setElementsToStorage = (elements: ExcalidrawElement[] = []) => {
+  const currentContainerName = getContainerNameFromStorage();
+
+  localStorage.setItem(currentContainerName, JSON.stringify(elements));
+};
+
+export const renameContainerNameToStorage = (
+  oldName: string,
+  newName: string,
+) => {
+  if (!(oldName && newName)) {
+    console.warn(
+      `oldName: ${oldName}, newName: ${newName} 不同时存在，无法重命名`,
+    );
+  }
+
+  const elements = getElementsFromStorage();
+
+  setContainerNameToStorage(newName);
+
+  setElementsToStorage(elements);
+
+  localStorage.removeItem(oldName);
+
+  const containerList = getContainerListFromStorage();
+
+  const newContainerList = containerList.map((name: string) => {
+    if (name === oldName) {
+      return newName;
+    }
+    return name;
+  });
+
+  setContainerListToStorage(newContainerList);
+};
+
+export const removeContainerFromStorage = (containerName: string) => {
+  localStorage.removeItem(containerName);
+
+  const containerList = getContainerListFromStorage();
+
+  const newContainerList = containerList.filter((name: string) => {
+    return name !== containerName;
+  });
+
+  setContainerListToStorage(newContainerList);
+};
+
+export const getAllContainerListElementsFromStorage = () => {
+  const containerList = getContainerListFromStorage();
+
+  return containerList.reduce((prevElements, containerName) => {
+    const _elements = getElementsFromStorage(containerName);
+
+    return [...prevElements, ..._elements];
+  }, [] as ExcalidrawElement[]);
+};
