@@ -20,6 +20,7 @@ import { SAVE_TO_LOCAL_STORAGE_TIMEOUT, STORAGE_KEYS } from "../app_constants";
 import { FileManager } from "./FileManager";
 import { Locker } from "./Locker";
 import { updateBrowserStateVersion } from "./tabSync";
+import {getContainerNameFromStorage} from "./localStorage";
 
 const filesStore = createStore("files-db", "files-store");
 
@@ -49,7 +50,8 @@ const saveDataStateToLocalStorage = (
 ) => {
   try {
     localStorage.setItem(
-      STORAGE_KEYS.LOCAL_STORAGE_ELEMENTS,
+      // STORAGE_KEYS.LOCAL_STORAGE_ELEMENTS,
+      getContainerNameFromStorage(),
       JSON.stringify(clearElementsForLocalStorage(elements)),
     );
     localStorage.setItem(
