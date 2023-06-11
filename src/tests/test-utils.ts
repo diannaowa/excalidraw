@@ -17,6 +17,7 @@ import { SceneData } from "../types";
 import { getSelectedElements } from "../scene/selection";
 import { ExcalidrawElement } from "../element/types";
 import { UI } from "./helpers/ui";
+import {getContainerNameFromStorage} from "../excalidraw-app/data/localStorage";
 
 const customQueries = {
   ...queries,
@@ -91,7 +92,8 @@ export class GlobalTestState {
 const initLocalStorage = (data: ImportedDataState) => {
   if (data.elements) {
     localStorage.setItem(
-      STORAGE_KEYS.LOCAL_STORAGE_ELEMENTS,
+      // STORAGE_KEYS.LOCAL_STORAGE_ELEMENTS,
+      getContainerNameFromStorage(),
       JSON.stringify(data.elements),
     );
   }
