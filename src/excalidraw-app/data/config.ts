@@ -65,7 +65,7 @@ export async function getStorageBackend() {
     return storageBackend;
   }
 
-  const storageBackendName = await getEnv(EnvVar.STORAGE_BACKEND);
+  const storageBackendName = process.env.STORAGE_BACKEND;
 
   if (storageBackends.has(storageBackendName)) {
     storageBackend = storageBackends.get(storageBackendName) as StorageBackend;

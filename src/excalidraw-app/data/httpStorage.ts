@@ -6,7 +6,7 @@ import { getSceneVersion } from "../../element";
 import { ExcalidrawElement, FileId } from "../../element/types";
 import { BinaryFileData, BinaryFileMetadata, DataURL } from "../../types";
 import Portal from "../collab/Portal";
-import { EnvVar, getEnv } from "./config";
+// import { EnvVar, getEnv } from "./config";
 
 // There is a lot of intentional duplication with the firebase file
 // to prevent modifying upstream files and ease futur maintenance of this fork
@@ -48,9 +48,7 @@ export const saveToHttpStorage = async (
 
   const sceneVersion = getSceneVersion(elements);
 
-  const HTTP_STORAGE_BACKEND_URL = await getEnv(
-    EnvVar.HTTP_STORAGE_BACKEND_URL,
-  );
+  const HTTP_STORAGE_BACKEND_URL = process.env.HTTP_STORAGE_BACKEND_URL;
   const getResponse = await fetch(
     `${HTTP_STORAGE_BACKEND_URL}/rooms/${roomId}`,
   );
@@ -95,9 +93,7 @@ export const loadFromHttpStorage = async (
   roomKey: string,
   socket: SocketIOClient.Socket | null,
 ): Promise<readonly ExcalidrawElement[] | null> => {
-  const HTTP_STORAGE_BACKEND_URL = await getEnv(
-    EnvVar.HTTP_STORAGE_BACKEND_URL,
-  );
+  const HTTP_STORAGE_BACKEND_URL = process.env.HTTP_STORAGE_BACKEND_URL;
   const getResponse = await fetch(
     `${HTTP_STORAGE_BACKEND_URL}/rooms/${roomId}`,
   );
@@ -160,9 +156,7 @@ export const saveFilesToHttpStorage = async ({
   const erroredFiles = new Map<FileId, true>();
   const savedFiles = new Map<FileId, true>();
 
-  const HTTP_STORAGE_BACKEND_URL = await getEnv(
-    EnvVar.HTTP_STORAGE_BACKEND_URL,
-  );
+  const HTTP_STORAGE_BACKEND_URL = process.env.HTTP_STORAGE_BACKEND_URL;
 
   await Promise.all(
     files.map(async ({ id, buffer }) => {
@@ -195,9 +189,7 @@ export const loadFilesFromHttpStorage = async (
   await Promise.all(
     [...new Set(filesIds)].map(async (id) => {
       try {
-        const HTTP_STORAGE_BACKEND_URL = await getEnv(
-          EnvVar.HTTP_STORAGE_BACKEND_URL,
-        );
+        const HTTP_STORAGE_BACKEND_URL = process.env.HTTP_STORAGE_BACKEND_URL;
         const response = await fetch(`${HTTP_STORAGE_BACKEND_URL}/files/${id}`);
         if (response.status < 400) {
           const arrayBuffer = await response.arrayBuffer();
