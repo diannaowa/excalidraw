@@ -45,8 +45,8 @@ declare namespace NodeJS {
     readonly REACT_APP_BACKEND_V2_POST_URL: string;
     readonly REACT_APP_PORTAL_URL: string;
     readonly REACT_APP_FIREBASE_CONFIG: string;
-    readonly STORAGE_BACKEND: string;
-    readonly HTTP_STORAGE_BACKEND_URL: string;
+    readonly REACT_APP_STORAGE_BACKEND: string;
+    readonly REACT_APP_HTTP_STORAGE_BACKEND_URL: string;
   }
 }
 
